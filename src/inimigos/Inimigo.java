@@ -1,16 +1,81 @@
 package inimigos;
 
+import excecoes.InimigoInvalidoException;
+
 public abstract class Inimigo {
 	
 	protected int vidaMaxima;
 	protected int ataqueBase;
 	protected int defesa;
 	protected String especialidade;
-	protected String nome;
+	private final String nome;
 	protected int vidaAtual;
 
-	public Inimigo(int vidaMaxima, int ataqueBase, int defesa, String especialidade, String nome, int vidaAtual) {
+	public Inimigo(int vidaMaxima, int ataqueBase, int defesa, String especialidade, int vidaAtual) {
+		this.nome = "";
+		
 		
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public int getVidaMaxima() {
+		return vidaMaxima;
+	}
+
+	public int getVidaAtual() {
+		return vidaAtual;
+	}
+
+	public int getAtaqueBase() {
+		return ataqueBase;
+	}
+
+	public int getDefesa() {
+		return defesa;
+	}
+
+	public String getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setVidaMaxima(int vidaMaxima) throws InimigoInvalidoException {
+		if (vidaMaxima <= 0) {
+			throw new InimigoInvalidoException("A vida máxima deve ser maior que zero.");
+		}
+		this.vidaMaxima = vidaMaxima;
+		if (vidaAtual > vidaMaxima) {
+			vidaAtual = vidaMaxima;
+		}
+	}
+
+	public void setVidaAtual(int vidaAtual) throws InimigoInvalidoException {
+		if (vidaAtual < 0 || vidaAtual > vidaMaxima) {
+			throw new InimigoInvalidoException("A vida atual deve estar entre 0 e a vida máxima.");
+		}
+		this.vidaAtual = vidaAtual;
+	}
+
+	public void setAtaqueBase(int ataqueBase) throws InimigoInvalidoException {
+		if (ataqueBase < 0) {
+			throw new InimigoInvalidoException("O ataque base não pode ser negativo.");
+		}
+		this.ataqueBase = ataqueBase;
+	}
+
+	public void setDefesa(int defesa) throws InimigoInvalidoException {
+		if (defesa < 0) {
+			throw new InimigoInvalidoException("A defesa não pode ser negativa.");
+		}
+		this.defesa = defesa;
+	}
+
+	public void setEspecialidade(String especialidade) throws InimigoInvalidoException {
+		if (especialidade == null || especialidade.trim().isEmpty()) {
+			throw new InimigoInvalidoException("A especialidade não pode ser vazia.");
+		}
+		this.especialidade = especialidade;
+	}
 }
