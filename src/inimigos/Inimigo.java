@@ -9,8 +9,8 @@ public abstract class Inimigo {
 	protected String nome;
 	protected int vidaAtual;
 
-	public Inimigo() {
-		// TODO Auto-generated constructor stub
+	public Inimigo(int vidaMaxima, int ataqueBase, int defesa, String especialidade, String nome, int vidaAtual) {
+		
 	}
 
 }
