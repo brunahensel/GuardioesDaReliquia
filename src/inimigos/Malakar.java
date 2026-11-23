@@ -7,8 +7,7 @@ public class Malakar extends Inimigo {
 	private int defesaMax;
 	private int defesaAtual;
 
-	public Malakar(int defesaMax, int defesaAtual, int vidaMaxima, int ataqueBase, int defesa, 
-			String especialidade, int vidaAtual, String nome) throws InimigoInvalidoException {
+	public Malakar() throws InimigoInvalidoException {
 		super(140, 20, 14, "Explosão Arcana", 140, "Malakar");
 		this.setDefesaMax(18);
 		this.setDefesaAtual(0);

@@ -9,8 +9,7 @@ public class Gruk extends Inimigo {
 	private int forcaAtual;
 
 
-	public Gruk(int vidaMaxima, int ataqueBase, int forcaMax, int forcaAtual, int defesa,
-			String especialidade, int vidaAtual, String nome) throws InimigoInvalidoException {
+	public Gruk() throws InimigoInvalidoException {
 		super(80, 16, 5, "Golpe Brutal", 80, "Gruk");
 		this.forcaMax = 10;
 		this.forcaAtual = 0; //força inicial, altera conforme os ataques.
@@ -36,11 +35,11 @@ public class Gruk extends Inimigo {
 		}
 	}
 
-	public void setForcaInicial (int forcaInicial) throws InimigoInvalidoException {
-		if (forcaInicial < 0 || forcaInicial > forcaMax) {
+	public void setForcaAtual (int forcaAtual) throws InimigoInvalidoException {
+		if (forcaAtual < 0 || forcaAtual > forcaMax) {
 			throw new InimigoInvalidoException("A força atual deve estar entre 0 e a força máxima.");
 		}
-		this.forcaAtual = forcaInicial;
+		this.forcaAtual = forcaAtual;
 	}
 
 	@Override
@@ -57,7 +56,9 @@ public class Gruk extends Inimigo {
 	}
 	
 	public void zerarForca() {
-		forcaAtual = 0;
+		if (forcaAtual == forcaMax) {
+			forcaAtual = 0; 
+		}
 	}
 	
 	@Override

@@ -8,11 +8,11 @@ public abstract class Inimigo {
 	protected int ataqueBase;
 	protected int defesa;
 	protected String especialidade;
-	private final String nome;
+	private final String nome; //sem setter
 	protected int vidaAtual;
 
 	public Inimigo(int vidaMaxima, int ataqueBase, int defesa, String especialidade, int vidaAtual, String nome) throws InimigoInvalidoException {
-		this.nome = "";
+		this.nome = nome;
 		setVidaMaxima(vidaMaxima);
 		setAtaqueBase(ataqueBase);
 		setDefesa(defesa);
