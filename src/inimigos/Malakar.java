@@ -1,9 +1,53 @@
 package inimigos;
 
-public class Malakar {
+import excecoes.InimigoInvalidoException;
 
-	public Malakar() {
-		// TODO Auto-generated constructor stub
+public class Malakar extends Inimigo {
+	
+	private int defesaMax;
+	private int defesaAtual;
+
+	public Malakar(int defesaMax, int defesaAtual, int vidaMaxima, int ataqueBase, int defesa, 
+			String especialidade, int vidaAtual, String nome) throws InimigoInvalidoException {
+		super(140, 20, 14, "Explosão Arcana", 140, "Malakar");
+		this.setDefesaMax(18);
+		this.setDefesaAtual(0);
 	}
 
+	//gets
+	public int getDefesaMax() {
+		return defesaMax;
+	}
+
+	public int getDefesaAtual() {
+		return defesaAtual;
+	}
+	
+	//sets
+	public void setDefesaMax(int defesaMax) throws InimigoInvalidoException {
+		if (defesaMax <= 0) {
+			throw new InimigoInvalidoException("A defesa máxima deve ser maior que zero.");
+		}
+		this.defesaMax = defesaMax;
+		if (defesaAtual > defesaMax) {
+			defesaAtual = defesaMax;
+		}
+	}
+
+	public void setDefesaAtual(int defesaAtual) throws InimigoInvalidoException {
+		if (defesaAtual < 0 || defesaAtual > defesaMax) {
+			throw new InimigoInvalidoException("A defesa atual deve estar entre 0 e a defesa máxima.");
+		}
+		this.defesaAtual = defesaAtual;
+	}
+
+	@Override
+	public int habilidadeEspecial(int defesaAdversario) {
+		return calcularDanoEspecial(defesaAdversario);
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + " | Defesa atual: " + defesaAtual + "/" + defesaMax;
+	}
 }

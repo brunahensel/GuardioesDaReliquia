@@ -2,16 +2,18 @@ package inimigos;
 
 import excecoes.InimigoInvalidoException;
 
+
 public class Gruk extends Inimigo {
 	
 	private int forcaMax;
 	private int forcaAtual;
 
 
-	public Gruk(int vidaMaxima, int ataqueBase, int forcaMax, int forcaAtual, int defesa, String especialidade, int vidaAtual, String nome) throws InimigoInvalidoException {
+	public Gruk(int vidaMaxima, int ataqueBase, int forcaMax, int forcaAtual, int defesa,
+			String especialidade, int vidaAtual, String nome) throws InimigoInvalidoException {
 		super(80, 16, 5, "Golpe Brutal", 80, "Gruk");
 		this.forcaMax = 10;
-		this.forcaAtual = 0;
+		this.forcaAtual = 0; //força inicial, altera conforme os ataques.
 	}
 
 	//gets
@@ -42,8 +44,8 @@ public class Gruk extends Inimigo {
 	}
 
 	@Override
-	public String usarEspecialidade() {
-		return getNome() + " usa " + getEspecialidade() + "!";
+	public int habilidadeEspecial(int defesaAdversario) {
+		return calcularDanoEspecial(defesaAdversario);
 	}
 	
 	public void ganharForca(int quantidade) {

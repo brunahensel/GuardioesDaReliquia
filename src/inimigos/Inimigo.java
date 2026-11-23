@@ -103,7 +103,7 @@ public abstract class Inimigo {
 		return Math.max(0, ataqueBase - defesaAdversario);
 	}
 	
-	public abstract String usarEspecialidade();
+	public abstract int habilidadeEspecial(int defesaAdversario);
 	
 	@Override
 	public String toString() {
