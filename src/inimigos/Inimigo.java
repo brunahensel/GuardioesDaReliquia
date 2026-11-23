@@ -11,7 +11,7 @@ public abstract class Inimigo {
 	private final String nome;
 	protected int vidaAtual;
 
-	public Inimigo(int vidaMaxima, int ataqueBase, int defesa, String especialidade, int vidaAtual) throws InimigoInvalidoException {
+	public Inimigo(int vidaMaxima, int ataqueBase, int defesa, String especialidade, int vidaAtual, String nome) throws InimigoInvalidoException {
 		this.nome = "";
 		setVidaMaxima(vidaMaxima);
 		setAtaqueBase(ataqueBase);
@@ -21,6 +21,7 @@ public abstract class Inimigo {
 		
 	}
 
+	//gets
 	public String getNome() {
 		return nome;
 	}
@@ -45,6 +46,7 @@ public abstract class Inimigo {
 		return especialidade;
 	}
 
+	//sets
 	public void setVidaMaxima(int vidaMaxima) throws InimigoInvalidoException {
 		if (vidaMaxima <= 0) {
 			throw new InimigoInvalidoException("A vida máxima deve ser maior que zero.");
@@ -83,6 +85,7 @@ public abstract class Inimigo {
 		this.especialidade = especialidade;
 	}
 	
+	//metodos
 	//Math.max devolve o maior numero, proibindo de ficar abaixo de zero
 	public int calcularDanoEspecial(int defesaAdversario) {
 		return Math.max(0, ataqueBase * 2 - defesaAdversario);
@@ -101,4 +104,11 @@ public abstract class Inimigo {
 	}
 	
 	public abstract String usarEspecialidade();
+	
+	@Override
+	public String toString() {
+		return nome + " | Vida: " + vidaAtual + "/" + vidaMaxima
+				+ " | Ataque: " + ataqueBase + " | Defesa: " + defesa
+				+ " | Habilidade: " + especialidade;
+	}
 }
