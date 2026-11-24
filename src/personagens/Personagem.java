@@ -10,6 +10,7 @@ public abstract class Personagem {
 	private String especialidade;
 	private final String nome;
 	private int vidaAtual;
+	private boolean defendendo = false;
 	
 	
 	public Personagem(int vidaMaxima, int ataqueBase, int defesa, String especialidade, String nome) throws PersonagemInvalidoException {
@@ -46,6 +47,10 @@ public abstract class Personagem {
 	public String getEspecialidade() {
 			return especialidade;
 	}
+	
+	public void defender() {
+		defendendo = true;
+	}
 
 
 	//sets
@@ -59,7 +64,7 @@ public abstract class Personagem {
 		}
 	}
 
-	public void setVidaAtual(int vidaMaxima) throws PersonagemInvalidoException {
+	public void setVidaAtual(int vidaAtual) throws PersonagemInvalidoException {
 		if (vidaAtual < 0 || vidaAtual > vidaMaxima) {
 			throw new PersonagemInvalidoException("A vida atual deve estar entre 0 e a vida máxima.");
 		}
@@ -87,7 +92,12 @@ public abstract class Personagem {
 		this.especialidade = especialidade;
 	}
 
-	//parte da isa
+	public boolean isDefendendo() {
+		return defendendo;
+	}
+	
+	
+	//metodos
 	public boolean estaVivo() {
 		return vidaAtual > 0;
 	}
@@ -96,7 +106,18 @@ public abstract class Personagem {
 		return Math.max(0, ataqueBase - defesaAlvo);
 	}
 	
-	//public int receberDano(int dano)          // aplica a defesa se estiver defendendo, expira a defesa, devolve o dano efetivo
+	public int receberDano(int dano) {
+		if (dano < 0) {
+			dano = 0;
+		}
+		if (defendendo) {
+			dano = dano / 2;
+			defendendo = false;
+		}
+		int vidaAntes = vidaAtual;
+		vidaAtual = Math.max(0, vidaAtual - dano);
+		return vidaAntes - vidaAtual;
+	}
 	
 	public void curar(int quantidade) {
 		Math.min(vidaMaxima, vidaAtual + quantidade);
