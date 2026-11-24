@@ -56,8 +56,18 @@ public class ODestruidor extends Inimigo {
 		forcaAtual = Math.min(forcaMax, forcaAtual + quantidade);
 	}
 	
+	
 	@Override
 	public String toString() {
 		return super.toString() + " | Força: " + forcaAtual + "/" + forcaMax;
+	}
+	
+	@Override
+	public boolean deveUsarEspecial() {
+		return podeUsarHabilidade();
+	}
+	
+	public void aposAcao() {
+		ganharForca(3);
 	}
 }

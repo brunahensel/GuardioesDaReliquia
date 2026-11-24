@@ -49,4 +49,9 @@ public class Malakar extends Inimigo {
 	public String toString() {
 		return super.toString() + " | Defesa atual: " + defesaAtual + "/" + defesaMax;
 	}
+	
+	@Override
+	public boolean deveUsarEspecial() {
+		return vidaAtual < vidaMaxima / 2;
+	}
 }
