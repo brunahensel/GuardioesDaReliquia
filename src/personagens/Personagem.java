@@ -1,90 +1,188 @@
-package personagens;
 
-import excecoes.PersonagemInvalidoException;
+package personagens;
 
 public abstract class Personagem {
 
-	private int vidaMaxima;
-	private int ataqueBase;
-	private int defesa;
-	private String especialidade;
-	private final String nome;
-	private int vidaAtual;
-	
-	
-	public Personagem(int vidaMaxima, int ataqueBase, int defesa, String especialidade, String nome) throws PersonagemInvalidoException {
-		this.nome = nome;
-		setVidaMaxima(vidaMaxima);
-		setAtaqueBase(ataqueBase);
-		setDefesa(defesa);
-		setEspecialidade(especialidade);
-		setVidaAtual(vidaAtual);
-	
-	}
-	
-	//gets
-	public String getNome() {
-			return nome;
-	}
+    private String nome;
+    private int vidaMaxima;
+    private int vidaAtual;
+    private int ataqueBase;
+    private int defesa;
+    private String especialidade;
+    private boolean defendendo;
 
-	public int getVidaMaxima() {
-			return vidaMaxima;
-	}
+    public Personagem(String nome, int vidaMaxima, int ataqueBase,
+            int defesa, String especialidade) {
 
-	public int getVidaAtual() {
-			return vidaAtual;
-	}
+        setNome(nome);
+        setVidaMaxima(vidaMaxima);
+        setAtaqueBase(ataqueBase);
+        setDefesa(defesa);
+        setEspecialidade(especialidade);
 
-	public int getAtaqueBase() {
-			return ataqueBase;
-	}
+        this.vidaAtual = vidaMaxima;
+        this.defendendo = false;
+    }
+    
 
-	public int getDefesa() {
-			return defesa;
-	}
+    // Getters
+    
+    public String getNome() {
+        return nome;
+    }
 
-	public String getEspecialidade() {
-			return especialidade;
-	}
+    public int getVidaMaxima() {
+        return vidaMaxima;
+    }
 
+    public int getVidaAtual() {
+        return vidaAtual;
+    }
 
-	//sets
-	public void setVidaMaxima(int vidaMaxima) throws PersonagemInvalidoException {
-		if (vidaMaxima <= 0) {
-				throw new PersonagemInvalidoException("A vida máxima deve ser maior que zero.");
-		}
-		this.vidaMaxima = vidaMaxima;
-		if (vidaAtual > vidaMaxima) {
-				vidaAtual = vidaMaxima;
-		}
-	}
+    public int getAtaqueBase() {
+        return ataqueBase;
+    }
 
-	public void setVidaAtual(int vidaAtual) throws PersonagemInvalidoException {
-		if (vidaAtual < 0 || vidaAtual > vidaMaxima) {
-			throw new PersonagemInvalidoException("A vida atual deve estar entre 0 e a vida máxima.");
-		}
-		this.vidaAtual = vidaAtual;
-	}
+    public int getDefesa() {
+        return defesa;
+    }
 
-	public void setAtaqueBase(int ataqueBase) throws PersonagemInvalidoException {
-		if (ataqueBase < 0) {
-			throw new PersonagemInvalidoException("O ataque base não pode ser negativo.");
-		}
-		this.ataqueBase = ataqueBase;
-	}
+    public String getEspecialidade() {
+        return especialidade;
+    }
 
-	public void setDefesa(int defesa) throws PersonagemInvalidoException {
-		if (defesa < 0) {
-			throw new PersonagemInvalidoException("A defesa não pode ser negativa.");
-		}
-		this.defesa = defesa;
-	}
+    public boolean isDefendendo() {
+        return defendendo;
+    }
 
-	public void setEspecialidade(String especialidade) throws PersonagemInvalidoException {
-		if (especialidade == null || especialidade.trim().isEmpty()) {
-			throw new PersonagemInvalidoException("A especialidade não pode ser vazia.");
-		}
-		this.especialidade = especialidade;
-	}
+    // Setters
+    
+    public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome inválido!");
+        }
+
+        this.nome = nome;
+    }
+
+    public void setVidaMaxima(int vidaMaxima) {
+        if (vidaMaxima <= 0) {
+            throw new IllegalArgumentException("Vida máxima inválida!");
+        }
+
+        if (vidaMaxima < vidaAtual) {
+            throw new IllegalArgumentException(
+                    "Vida máxima menor que a vida atual!");
+        }
+
+        this.vidaMaxima = vidaMaxima;
+    }
+
+    public void setVidaAtual(int vidaAtual) {
+        if (vidaAtual < 0 || vidaAtual > vidaMaxima) {
+            throw new IllegalArgumentException("Vida inválida!");
+        }
+
+        this.vidaAtual = vidaAtual;
+    }
+
+    public void setAtaqueBase(int ataqueBase) {
+        if (ataqueBase < 0) {
+            throw new IllegalArgumentException("Ataque inválido!");
+        }
+
+        this.ataqueBase = ataqueBase;
+    }
+
+    public void setDefesa(int defesa) {
+        if (defesa < 0) {
+            throw new IllegalArgumentException("Defesa inválida!");
+        }
+
+        this.defesa = defesa;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        if (especialidade == null || especialidade.trim().isEmpty()) {
+            throw new IllegalArgumentException("Especialidade inválida!");
+        }
+
+        this.especialidade = especialidade;
+    }
+
+    
+    // Combate
+    
+    public int atacar() {
+        return ataqueBase;
+    }
+
+    
+    // Defender
+    
+    public void defender() {
+
+        if (estaDerrotado()) {
+            throw new IllegalStateException(
+                    "Personagem derrotado não pode defender!");
+        }
+
+        defendendo = true;
+    }
+
+    // Receber dano
+    
+    public void receberDano(int dano) {
+
+        if (dano < 0) {
+            throw new IllegalArgumentException("Dano inválido!");
+        }
+
+        int danoRecebido = dano - defesa;
+
+        if (danoRecebido < 0) {
+            danoRecebido = 0;
+        }
+
+        if (defendendo) {
+            danoRecebido = danoRecebido / 2;
+            defendendo = false;
+        }
+
+        vidaAtual = vidaAtual - danoRecebido;
+
+        if (vidaAtual < 0) {
+            vidaAtual = 0;
+        }
+    }
+
+    
+    // Recuperar vida
+    
+    public void recuperarVida(int cura) {
+
+        if (cura < 0) {
+            throw new IllegalArgumentException("Cura inválida!");
+        }
+
+        vidaAtual = vidaAtual + cura;
+
+        if (vidaAtual > vidaMaxima) {
+            vidaAtual = vidaMaxima;
+        }
+    }
+
+    
+    // Verificação de derrota
+    
+    public boolean estaDerrotado() {
+        return vidaAtual == 0;
+    }
+
+    
+    // Método abstrato para habilidade especial
+    
+    public abstract int habilidadeEspecial();
 
 }
+
