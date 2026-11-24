@@ -88,11 +88,21 @@ public abstract class Personagem {
 	}
 
 	//parte da isa
-	//public boolean estaVivo()                 // vidaAtual > 0
-	//public int calcularDano(int defesaAlvo)   // Math.max(0, ataqueBase - defesaAlvo)
+	public boolean estaVivo() {
+		return vidaAtual > 0;
+	}
+	
+	public int calcularDano(int defesaAlvo) {
+		return Math.max(0, ataqueBase - defesaAlvo);
+	}
+	
 	//public int receberDano(int dano)          // aplica a defesa se estiver defendendo, expira a defesa, devolve o dano efetivo
-	//public void curar(int quantidade)         // Math.min(vidaMaxima, vidaAtual + quantidade)
-	//public void defender()                    // liga a flag de defesa
+	
+	public void curar(int quantidade) {
+		Math.min(vidaMaxima, vidaAtual + quantidade);
+	}
+	
+	//public void defender()                    // liga defesa
 	//public abstract int habilidadeEspecial(int defesaAdversario) throws AcaoInvalidaException
 	    // cada subclasse valida e consome o recurso ANTES de mexer em qualquer coisa
 	    // e devolve o dano; lança AcaoInvalidaException se o recurso for insuficiente
