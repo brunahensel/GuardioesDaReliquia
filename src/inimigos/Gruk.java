@@ -51,14 +51,22 @@ public class Gruk extends Inimigo {
 		forcaAtual = Math.min(forcaMax, forcaAtual + quantidade); 
 	}
 	
-	public boolean usarHabilidadeEspecial() {
+	public boolean deveUsarEspecial() {
 		return forcaAtual == forcaMax;
 	}
+
 	
 	public void zerarForca() {
 		if (forcaAtual == forcaMax) {
 			forcaAtual = 0; 
 		}
+	}
+	
+	public void aposAcao(boolean usouEspecial) {
+		if (usouEspecial) {
+			zerarForca();
+		} 
+			ganharForca(2);
 	}
 	
 	@Override

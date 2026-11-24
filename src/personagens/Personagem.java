@@ -173,7 +173,6 @@ public abstract class Personagem {
     }
 
     
-    // Verificação de derrota
     
     public boolean estaDerrotado() {
         return vidaAtual == 0;
@@ -185,4 +184,3 @@ public abstract class Personagem {
     public abstract int habilidadeEspecial();
 
 }
-
