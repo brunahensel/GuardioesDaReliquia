@@ -1,9 +1,14 @@
 package excecoes;
 
-public class ItemInvalidoException {
+public class ItemInvalidoException extends Exception {
 
-	public ItemInvalidoException() {
-		// TODO Auto-generated constructor stub
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3L;
+
+	public ItemInvalidoException(String mensagem) {
+		super(mensagem);
 	}
 
 }
