@@ -111,4 +111,8 @@ public abstract class Inimigo {
 				+ " | Ataque: " + ataqueBase + " | Defesa: " + defesa
 				+ " | Habilidade: " + especialidade;
 	}
+	
+	public abstract boolean deveUsarEspecial();
+	public void aposAcao(boolean usouEspecial) {
+	}  
 }

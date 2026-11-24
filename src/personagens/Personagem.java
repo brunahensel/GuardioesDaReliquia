@@ -59,7 +59,7 @@ public abstract class Personagem {
 		}
 	}
 
-	public void setVidaAtual(int vidaAtual) throws PersonagemInvalidoException {
+	public void setVidaAtual(int vidaMaxima) throws PersonagemInvalidoException {
 		if (vidaAtual < 0 || vidaAtual > vidaMaxima) {
 			throw new PersonagemInvalidoException("A vida atual deve estar entre 0 e a vida máxima.");
 		}
@@ -87,4 +87,13 @@ public abstract class Personagem {
 		this.especialidade = especialidade;
 	}
 
+	//parte da isa
+	//public boolean estaVivo()                 // vidaAtual > 0
+	//public int calcularDano(int defesaAlvo)   // Math.max(0, ataqueBase - defesaAlvo)
+	//public int receberDano(int dano)          // aplica a defesa se estiver defendendo, expira a defesa, devolve o dano efetivo
+	//public void curar(int quantidade)         // Math.min(vidaMaxima, vidaAtual + quantidade)
+	//public void defender()                    // liga a flag de defesa
+	//public abstract int habilidadeEspecial(int defesaAdversario) throws AcaoInvalidaException
+	    // cada subclasse valida e consome o recurso ANTES de mexer em qualquer coisa
+	    // e devolve o dano; lança AcaoInvalidaException se o recurso for insuficiente
 }
