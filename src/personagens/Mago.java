@@ -69,3 +69,4 @@ public class Mago extends Personagem {
 	}
 
 }
+//hehehe
