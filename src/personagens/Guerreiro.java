@@ -69,5 +69,6 @@ public class Guerreiro extends Personagem {
         return (int) (getAtaqueBase() * 1.5);
     }
 }
+//oi 
 	
 
