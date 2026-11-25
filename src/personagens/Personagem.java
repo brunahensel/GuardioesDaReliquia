@@ -1,9 +1,12 @@
 
 package personagens;
 
+import excecoes.AcaoInvalidaException;
+import excecoes.PersonagemInvalidoException;
+
 public abstract class Personagem {
 
-    private String nome;
+	private final String nome;
     private int vidaMaxima;
     private int vidaAtual;
     private int ataqueBase;
@@ -12,9 +15,9 @@ public abstract class Personagem {
     private boolean defendendo;
 
     public Personagem(String nome, int vidaMaxima, int ataqueBase,
-            int defesa, String especialidade) {
-
-        setNome(nome);
+            int defesa, String especialidade) throws PersonagemInvalidoException {
+    	
+        this.nome = nome;
         setVidaMaxima(vidaMaxima);
         setAtaqueBase(ataqueBase);
         setDefesa(defesa);
@@ -24,13 +27,11 @@ public abstract class Personagem {
         this.defendendo = false;
     }
     
-
-    // Getters
-    
+    //gets
     public String getNome() {
-        return nome;
+    	return nome;
     }
-
+    
     public int getVidaMaxima() {
         return vidaMaxima;
     }
@@ -55,83 +56,68 @@ public abstract class Personagem {
         return defendendo;
     }
 
-    // Setters
-    
-    public void setNome(String nome) {
-        if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("Nome inválido!");
-        }
-
-        this.nome = nome;
-    }
-
-    public void setVidaMaxima(int vidaMaxima) {
+    //sets
+    public void setVidaMaxima(int vidaMaxima) throws PersonagemInvalidoException {
         if (vidaMaxima <= 0) {
-            throw new IllegalArgumentException("Vida máxima inválida!");
+            throw new PersonagemInvalidoException("A vida máxima não pode ser menor ou igual a zero");
         }
 
         if (vidaMaxima < vidaAtual) {
-            throw new IllegalArgumentException(
+            throw new PersonagemInvalidoException (
                     "Vida máxima menor que a vida atual!");
         }
 
         this.vidaMaxima = vidaMaxima;
     }
 
-    public void setVidaAtual(int vidaAtual) {
-        if (vidaAtual < 0 || vidaAtual > vidaMaxima) {
-            throw new IllegalArgumentException("Vida inválida!");
+    public void setVidaAtual(int vidaAtual) throws PersonagemInvalidoException {
+        if (vidaAtual > vidaMaxima) {
+            throw new PersonagemInvalidoException("A vida atual não pode ser maior que a vida máxima");
         }
 
         this.vidaAtual = vidaAtual;
     }
 
-    public void setAtaqueBase(int ataqueBase) {
+    public void setAtaqueBase(int ataqueBase) throws PersonagemInvalidoException {
         if (ataqueBase < 0) {
-            throw new IllegalArgumentException("Ataque inválido!");
+            throw new PersonagemInvalidoException ("Ataque inválido!");
         }
 
         this.ataqueBase = ataqueBase;
     }
 
-    public void setDefesa(int defesa) {
+    public void setDefesa(int defesa) throws PersonagemInvalidoException {
         if (defesa < 0) {
-            throw new IllegalArgumentException("Defesa inválida!");
+            throw new PersonagemInvalidoException ("Defesa inválida!");
         }
 
         this.defesa = defesa;
     }
 
-    public void setEspecialidade(String especialidade) {
-        if (especialidade == null || especialidade.trim().isEmpty()) {
-            throw new IllegalArgumentException("Especialidade inválida!");
+    public void setEspecialidade(String especialidade) throws PersonagemInvalidoException {
+        if (especialidade == null || especialidade.isBlank()) {
+            throw new PersonagemInvalidoException("Especialidade inválida!");
         }
 
         this.especialidade = especialidade;
     }
 
     
-    // Combate
-    
+   
     public int atacar() {
         return ataqueBase;
     }
 
-    
-    // Defender
-    
-    public void defender() {
+    public void defender() throws AcaoInvalidaException {
 
         if (estaDerrotado()) {
-            throw new IllegalStateException(
-                    "Personagem derrotado não pode defender!");
+            throw new AcaoInvalidaException ("Personagem derrotado não pode defender!");
         }
 
         defendendo = true;
     }
 
     // Receber dano
-    
     public void receberDano(int dano) {
 
         if (dano < 0) {
@@ -180,9 +166,9 @@ public abstract class Personagem {
 
     
     // Método abstrato para habilidade especial
-    
-    public abstract int habilidadeEspecial();
+    public abstract boolean podeUsarHabilidade();
+    public abstract int habilidadeEspecial() throws AcaoInvalidaException;
 
 }
 
-//hehehe
+
