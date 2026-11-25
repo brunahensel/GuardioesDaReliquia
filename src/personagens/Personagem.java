@@ -184,3 +184,4 @@ public abstract class Personagem {
     public abstract int habilidadeEspecial();
 
 }
+
