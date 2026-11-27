@@ -1,7 +1,6 @@
-
 package dominio;
 
-import java.util.ArrayList;                         //Belly ama vcc xuxu S2
+import java.util.ArrayList;                         
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +17,7 @@ public class Partida {
 	private final Inventario inventario;
 	private final List<Inimigo> inimigos;
 
-	private int inimigoAtual;
+	private int indiceInimigoAtual;
 	private int pontuacao;
 	private Combate combate;
 
@@ -33,10 +32,10 @@ public class Partida {
 		inimigos.add(new Malakar());
 		inimigos.add(new ODestruidor());
 
-		this.inimigoAtual = 0;
+		this.indiceInimigoAtual = 0;
 		this.pontuacao = 0;
 
-		this.combate = new Combate(jogador, inimigos.get(inimigoAtual), inventario);
+		this.combate = new Combate(jogador, inimigos.get(indiceInimigoAtual), inventario);
 	}
 
 	// Gets
@@ -49,7 +48,7 @@ public class Partida {
 		return inventario;
 	}
 
-	public Inimigo getInimigoAtual() {
+	public Inimigo getIndiceInimigoAtual() {
 		if (combate == null) {
 			return null;
 		}
@@ -66,17 +65,17 @@ public class Partida {
 	}
 
 	public int getInimigosDerrotados() {
-		return inimigoAtual;
+		return indiceInimigoAtual;
 	}
 
 	// Verifica estado da partida
 
 	public boolean partidaFinalizada() {
-		return jogador.estaDerrotado() || inimigoAtual >= inimigos.size();
+		return jogador.estaDerrotado() || indiceInimigoAtual >= inimigos.size();
 	}
 
 	public boolean partidaVencida() {
-		return inimigoAtual >= inimigos.size() && !jogador.estaDerrotado();
+		return indiceInimigoAtual >= inimigos.size() && !jogador.estaDerrotado();
 	}
 
 	// Calcula pontuação de cada inimigo
@@ -105,17 +104,17 @@ public class Partida {
 			return "";
 		}
 
-		pontuacao += calcularPontosInimigo(inimigoAtual);
+		pontuacao += calcularPontosInimigo(indiceInimigoAtual);
 
 		pontuacao += (jogador.getVidaAtual() / 10) * 10;
 
 		String log = combate.getInimigo().getNome() + " foi derrotado!\n";
 
-		inimigoAtual++;
+		indiceInimigoAtual++;
 
-		if (inimigoAtual < inimigos.size()) {
+		if (indiceInimigoAtual < inimigos.size()) {
 
-			combate = new Combate(jogador, inimigos.get(inimigoAtual), inventario);
+			combate = new Combate(jogador, inimigos.get(indiceInimigoAtual), inventario);
 
 			log += "Próximo inimigo: " + combate.getInimigo().getNome() + "\n";
 
