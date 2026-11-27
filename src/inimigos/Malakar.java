@@ -6,11 +6,13 @@ public class Malakar extends Inimigo {
 	
 	private int defesaMax;
 	private int defesaAtual;
+	private boolean especialUsado;
 
 	public Malakar() throws InimigoInvalidoException {
 		super(140, 20, 14, "Explosão Arcana", 140, "Malakar");
 		this.setDefesaMax(18);
 		this.setDefesaAtual(0);
+		this.especialUsado = false;
 	}
 
 	//gets
@@ -52,6 +54,10 @@ public class Malakar extends Inimigo {
 	
 	@Override
 	public boolean deveUsarEspecial() {
-		return vidaAtual < vidaMaxima / 2;
+	    if (vidaAtual < vidaMaxima / 2 && !especialUsado) {
+	        especialUsado = true;
+	        return true;
+	    }
+	    return false;
 	}
 }

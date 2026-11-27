@@ -67,7 +67,8 @@ public class ODestruidor extends Inimigo {
 		return podeUsarHabilidade();
 	}
 	
-	public void aposAcao() {
-		ganharForca(3);
+	@Override
+	public void aposAcao(boolean usouEspecial) {
+	    ganharForca(3);
 	}
 }

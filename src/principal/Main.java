@@ -1,14 +1,12 @@
 package principal;
 
+import telas.MenuPrincipal;
+
 public class Main {
 
-	public Main() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		MenuPrincipal menu = new MenuPrincipal();
+		menu.setVisible(true); //pra janela menu aparecer
+		
 	}
-
 }

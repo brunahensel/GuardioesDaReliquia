@@ -73,9 +73,9 @@ public class Combate {
 	}
 
 	private String executarTurnoInimigo() {
-		if(!inimigo.inimigoVivo()) {
-			return inimigo.getNome() + " foi derrotado!\n";
-		}
+		    if (!inimigo.inimigoVivo()) {
+		        return "";
+		    }   
 		boolean especial = inimigo.deveUsarEspecial();
 		int dano;
 		if (especial) {

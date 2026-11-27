@@ -14,7 +14,7 @@ import personagens.Personagem;
 public class Partida {
 
 	private final Personagem jogador;
-	private final Inventario inventario;
+	private Inventario inventario;
 	private final List<Inimigo> inimigos;
 
 	private int indiceInimigoAtual;
@@ -27,6 +27,11 @@ public class Partida {
 
 		this.inventario = new Inventario();
 		this.inimigos = new ArrayList<Inimigo>();
+		
+		this.inventario = new Inventario();
+		for (int i = 0; i < 3; i++) {
+		    inventario.addItem(Item.pocao());
+		}
 
 		inimigos.add(new Gruk());
 		inimigos.add(new Malakar());
@@ -48,7 +53,7 @@ public class Partida {
 		return inventario;
 	}
 
-	public Inimigo getIndiceInimigoAtual() {
+	public Inimigo getInimigoAtual() {
 		if (combate == null) {
 			return null;
 		}
@@ -67,6 +72,7 @@ public class Partida {
 	public int getInimigosDerrotados() {
 		return indiceInimigoAtual;
 	}
+	
 
 	// Verifica estado da partida
 
@@ -127,4 +133,6 @@ public class Partida {
 
 		return log;
 	}
+
+	
 }
